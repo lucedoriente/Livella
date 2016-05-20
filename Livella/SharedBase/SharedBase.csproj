@@ -40,12 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Project.cs" />
     <Compile Include="Domain\StructureQueryBuilder.cs" />
+    <Compile Include="Domain\Tabella.cs" />
     <Compile Include="Enum\BooleanOperatori.cs" />
     <Compile Include="Enum\Operatori.cs" />
     <Compile Include="Enum\TipoRelazione.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\HelpParser.cs" />
+    <Compile Include="Utils\HelpProject.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

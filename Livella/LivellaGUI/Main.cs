@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace LivellaGUI
 {
@@ -21,32 +22,28 @@ namespace LivellaGUI
 
         private void ShowNewForm(object sender, EventArgs e)
         {
-            Form childForm = new Form();
-            childForm.MdiParent = this;
-            childForm.Text = "Window " + childFormNumber++;
-            childForm.Show();
+            Form projectForm = new ProjectForm();
+            projectForm.MdiParent = this;
+            projectForm.Show();
         }
 
         private void OpenFile(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+            openFileDialog.Filter = "XML Files (*.xml)|*.xml";
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 string FileName = openFileDialog.FileName;
+                XmlDocument doc = SharedBase.Utils.HelpProject.LoadXml(FileName);
+                Program.Prj = SharedBase.Utils.HelpProject.DeserializzaProject(doc);
+                Program.ProjectFileName[0] = openFileDialog.FileName;
             }
         }
 
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                string FileName = saveFileDialog.FileName;
-            }
+            SaveAs();
         }
 
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
@@ -103,5 +100,43 @@ namespace LivellaGUI
                 childForm.Close();
             }
         }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Save();
+        }
+
+        private void saveToolStripButton_Click(object sender, EventArgs e)
+        {
+            Save();
+        }
+
+        #region Metodi Privati
+
+        protected void SaveAs()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            saveFileDialog.FileName = Program.ProjectFileName == null ? string.Empty : Program.ProjectFileName[0];
+            saveFileDialog.Filter = "XML Files (*.xml)|*.xml";
+            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                string FileName = saveFileDialog.FileName;
+            }
+        }
+
+        protected void Save()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            saveFileDialog.FileName = Program.ProjectFileName == null ? string.Empty : Program.ProjectFileName[0];
+            saveFileDialog.Filter = "XML Files (*.xml)|*.xml";
+            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                string FileName = saveFileDialog.FileName;
+            }
+        }
+
+        #endregion Metodi Privati
     }
 }

@@ -17,50 +17,6 @@ namespace SharedBase.Utils
     {
         #region Metodi Pubblici
 
-        public static XmlDocument Serializza(List<StructureQueryBuilder.Tabella> t)
-        {
-            try
-            {
-                XmlDocument result;
-                var serializer = new XmlSerializer(typeof(List<StructureQueryBuilder.Tabella>));
-                using (MemoryStream mem = new MemoryStream())
-                {
-                    serializer.Serialize(mem,t);
-                    mem.Position = 0;
-                    XmlReaderSettings settings = new XmlReaderSettings();
-                    settings.IgnoreWhitespace = true;
-
-                    using (var xtr = XmlReader.Create(mem, settings))
-                    {
-                        result = new XmlDocument();
-                        result.Load(xtr);
-                    }
-                }
-                return result;
-            }
-            catch (Exception ex)
-            {
-                //LoggingEvents.Log("Si è verificato una anomalia rivolgersi all'amministratore di sistema", TraceEventType.Error, ex);
-                return null;
-            }
-        }
-
-        public static List<StructureQueryBuilder.Tabella> Deserializza(XmlDocument xml)
-        {
-            try
-            {
-                List<StructureQueryBuilder.Tabella> t = new List<StructureQueryBuilder.Tabella>();
-                var serializer = new XmlSerializer(typeof(List<StructureQueryBuilder.Tabella>));
-                t = (List<StructureQueryBuilder.Tabella>)serializer.Deserialize(new XmlNodeReader(xml.DocumentElement));
-                return t;
-            }
-            catch (Exception ex)
-            {
-                //LoggingEvents.Log("Si è verificato una anomalia rivolgersi all'amministratore di sistema", TraceEventType.Error, ex);
-                return null;
-            }
-        }
-
         public static string Parse(StructureQueryBuilder structureQueryBuilder, bool skipStaticWhere, bool skipTemporaryWhere, int byIdWhere)
         {
             string query = string.Empty;
