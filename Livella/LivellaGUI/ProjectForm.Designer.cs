@@ -28,20 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBoxLinked = new System.Windows.Forms.ListBox();
             this.buttonConnect = new System.Windows.Forms.Button();
             this.listViewCompareTable = new System.Windows.Forms.ListView();
             this.listViewBaseTable = new System.Windows.Forms.ListView();
+            this.listViewJoinList = new System.Windows.Forms.ListView();
             this.SuspendLayout();
-            // 
-            // listBoxLinked
-            // 
-            this.listBoxLinked.FormattingEnabled = true;
-            this.listBoxLinked.Location = new System.Drawing.Point(12, 415);
-            this.listBoxLinked.Name = "listBoxLinked";
-            this.listBoxLinked.Size = new System.Drawing.Size(823, 108);
-            this.listBoxLinked.TabIndex = 2;
-            this.listBoxLinked.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listBoxLinked_KeyDown);
             // 
             // buttonConnect
             // 
@@ -79,16 +70,28 @@
             this.listViewBaseTable.View = System.Windows.Forms.View.Details;
             this.listViewBaseTable.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.listViewBaseTable_ItemCheck);
             // 
+            // listViewJoinList
+            // 
+            this.listViewJoinList.CheckBoxes = true;
+            this.listViewJoinList.FullRowSelect = true;
+            this.listViewJoinList.Location = new System.Drawing.Point(12, 415);
+            this.listViewJoinList.MultiSelect = false;
+            this.listViewJoinList.Name = "listViewJoinList";
+            this.listViewJoinList.Size = new System.Drawing.Size(823, 108);
+            this.listViewJoinList.TabIndex = 10;
+            this.listViewJoinList.UseCompatibleStateImageBehavior = false;
+            this.listViewJoinList.View = System.Windows.Forms.View.Details;
+            // 
             // ProjectForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(852, 535);
             this.ControlBox = false;
+            this.Controls.Add(this.listViewJoinList);
             this.Controls.Add(this.listViewBaseTable);
             this.Controls.Add(this.listViewCompareTable);
             this.Controls.Add(this.buttonConnect);
-            this.Controls.Add(this.listBoxLinked);
             this.Name = "ProjectForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -98,9 +101,9 @@
         }
 
         #endregion
-        private System.Windows.Forms.ListBox listBoxLinked;
         private System.Windows.Forms.Button buttonConnect;
         private System.Windows.Forms.ListView listViewCompareTable;
         private System.Windows.Forms.ListView listViewBaseTable;
+        private System.Windows.Forms.ListView listViewJoinList;
     }
 }

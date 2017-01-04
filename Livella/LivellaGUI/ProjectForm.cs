@@ -30,14 +30,14 @@ namespace LivellaGUI
             if (listViewBaseTable.Items.Count > 0 && listViewCompareTable.Items.Count > 0)
             {
                 string valore = listViewBaseTable.CheckedItems[0].SubItems["NomeTabella"].Text + "." + listViewBaseTable.CheckedItems[0].SubItems["NomeCampo"].Text + " <-> " + listViewCompareTable.CheckedItems[0].SubItems["NomeTabella"].Text + "." + listViewCompareTable.CheckedItems[0].SubItems["NomeCampo"].Text;
-                if (!listBoxLinked.Items.Contains(valore))
-                {
-                    listBoxLinked.Items.Add(valore);
-                }
-                else
-                {
-                    MessageBox.Show(@"Questa coppia di campi è già associata");
-                }
+                //if (!listBoxLinked.Items.Contains(valore))
+                //{
+                //    listBoxLinked.Items.Add(valore);
+                //}
+                //else
+                //{
+                //    MessageBox.Show(@"Questa coppia di campi è già associata");
+                //}
             }
         }
 
@@ -56,6 +56,8 @@ namespace LivellaGUI
             listViewCompareTable.Columns.Add("Campo", "Campo");
             listViewCompareTable.Columns.Add("DataType", "DataType");
             listViewCompareTable.Columns.Add("Descrizione", "Descrizione");
+
+            listViewJoinList.Columns.Add("Join");
 
         }
 
@@ -110,6 +112,20 @@ namespace LivellaGUI
                 itm.SubItems.RemoveAt(0);
             }
             listViewCompareTable.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+
+            foreach (Join joinedField in Program.Prj.JoinedFields)
+            {
+                ListViewItem itm = new ListViewItem();
+                ListViewItem.ListViewSubItem asd = new ListViewItem.ListViewSubItem();
+                asd.Name = "Join";
+                asd.Text = joinedField.FirstField.NomeTabella + "."  + joinedField.FirstField.NomeCampo + "<->" + joinedField.SecondField.NomeTabella + "." + joinedField.SecondField.NomeCampo;
+                itm.SubItems.Add(asd);
+                listViewJoinList.Items.Add(itm);
+                itm.SubItems.RemoveAt(0);
+            }
+
+            listViewJoinList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+
         }
 
         protected void CreaPrj()
@@ -148,10 +164,10 @@ namespace LivellaGUI
         {
             if (e.KeyCode == Keys.Delete)
             {
-                if (listBoxLinked.SelectedIndex != -1)
-                {
-                    listBoxLinked.Items.RemoveAt(listBoxLinked.SelectedIndex);
-                }
+                //if (listBoxLinked.SelectedIndex != -1)
+                //{
+                //    listBoxLinked.Items.RemoveAt(listBoxLinked.SelectedIndex);
+                //}
             }
         }
 

@@ -17,7 +17,7 @@ namespace SharedBase.Domain
         {
             _baseTable = new Tabella();
             _compareTable = new Tabella();
-            _joinedFields = new Join();
+            _joinedFields = new List<Join>();
         }
 
         #endregion Costruttori
@@ -27,7 +27,7 @@ namespace SharedBase.Domain
         private string _projectName;
         private Tabella _baseTable;
         private Tabella _compareTable;
-        private Join _joinedFields;
+        private List<Join> _joinedFields;
 
         #endregion Variabili
 
@@ -54,7 +54,7 @@ namespace SharedBase.Domain
             set { _compareTable = value; }
         }
 
-        public Join JoinedFields
+        public List<Join> JoinedFields
         {
             get { return _joinedFields; }
             set { _joinedFields = value; }

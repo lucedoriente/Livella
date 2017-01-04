@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+using Enum;
 using SharedBase.Domain;
 
 namespace SharedBase.Utils.Tests
@@ -70,6 +71,8 @@ namespace SharedBase.Utils.Tests
 
             tb1.ListaCampi = lc1;
             pj.BaseTable = tb1;
+            
+
 
             // Creazione tabella di comparazione
             Tabella tb2 = new Tabella();
@@ -78,14 +81,14 @@ namespace SharedBase.Utils.Tests
 
             Campo c2 = new Campo();
             c2.NomeTabella = tb2.NomeTabella;
-            c2.NomeCampo = "Nome";
+            c2.NomeCampo = "NomeUtente";
             c2.DataType = "String";
             c2.Description = "Nome del soggetto";
             lc2.Add(c2);
 
             c2 = new Campo();
             c2.NomeTabella = tb2.NomeTabella;
-            c2.NomeCampo = "Cognome";
+            c2.NomeCampo = "CognomeUtente";
             c2.DataType = "String";
             c2.Description = "Cognome del soggetto";
             lc2.Add(c2);
@@ -118,10 +121,26 @@ namespace SharedBase.Utils.Tests
             pj.BaseTable = tb1;
             pj.CompareTable = tb2;
 
-            Relazione relazione = new Relazione();
+            
+            
+            Campo campo1 = new Campo();
+            campo1.NomeTabella = tb1.NomeTabella;
+            campo1.NomeCampo = "Nome";
+            campo1.DataType = "String";
+            campo1.Description = "Nome del soggetto";
 
-            relazione.JoinCondition = null;
-            relazione.Operatori=
+            Campo campo2 = new Campo();
+            campo2.NomeTabella = tb2.NomeTabella;
+            campo2.NomeCampo = "NomeUtente";
+            campo2.DataType = "String";
+            campo2.Description = "Nome del soggetto";
+            
+            Join j = new Join();
+            j.FirstField = campo1;
+            j.SecondField = campo2;
+
+            pj.JoinedFields.Add(j);
+            
 
             return pj;
         }
