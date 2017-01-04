@@ -10,7 +10,7 @@ namespace LivellaGUI
     static class Program
     {
         public static SharedBase.Domain.Project Prj;
-        public static string[] ProjectFileName;
+        public static List<string> ProjectFileName = new List<string>();
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

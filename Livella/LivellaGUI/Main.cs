@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using SharedBase.Domain;
+using SharedBase.Utils;
 
 namespace LivellaGUI
 {
@@ -37,7 +40,12 @@ namespace LivellaGUI
                 string FileName = openFileDialog.FileName;
                 XmlDocument doc = SharedBase.Utils.HelpProject.LoadXml(FileName);
                 Program.Prj = SharedBase.Utils.HelpProject.DeserializzaProject(doc);
-                Program.ProjectFileName[0] = openFileDialog.FileName;
+                Program.ProjectFileName.Add(openFileDialog.FileName);
+                // Load Project Form
+                Form projectForm = new ProjectForm();
+                projectForm.MdiParent = this;
+                projectForm.Text = @"Project - " + openFileDialog.FileName;
+                projectForm.Show();
             }
         }
 
@@ -134,6 +142,30 @@ namespace LivellaGUI
             if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 string FileName = saveFileDialog.FileName;
+                WriteToDisk();
+            }
+        }
+
+        protected void WriteToDisk()
+        {
+            bool saved = false;
+            XmlDocument xml = HelpProject.SerializzaProject(Program.Prj);
+            if (File.Exists(Program.Prj.ProjectName))
+            {
+                HelpProject.SaveXml(xml, Program.Prj.ProjectName + @".xml");
+                saved = true;
+            }
+            else
+            {
+                if (MessageBox.Show(@"File already present. Overwrite?") == DialogResult.Yes)
+                {
+                    HelpProject.SaveXml(xml, Program.Prj.ProjectName + @".xml");
+                    saved = true;
+                }
+            }
+            if (saved)
+            {
+                MessageBox.Show(@"Saved");
             }
         }
 

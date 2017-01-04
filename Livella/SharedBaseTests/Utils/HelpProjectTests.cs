@@ -27,17 +27,20 @@ namespace SharedBase.Utils.Tests
         {
             Project pj = new Project();
             pj.ProjectName = "Test";
+
+            // Creazione tabella di base
             Tabella tb1 = new Tabella();
             tb1.NomeTabella = "Tabella1";
             List<Campo> lc1 = new List<Campo>();
+
             Campo c1 = new Campo();
             c1.NomeTabella = tb1.NomeTabella;
             c1.NomeCampo = "Nome";
             c1.DataType = "String";
             c1.Description = "Nome del soggetto";
             lc1.Add(c1);
-            c1 = new Campo();
 
+            c1 = new Campo();
             c1.NomeTabella = tb1.NomeTabella;
             c1.NomeCampo = "Cognome";
             c1.DataType = "String";
@@ -68,6 +71,7 @@ namespace SharedBase.Utils.Tests
             tb1.ListaCampi = lc1;
             pj.BaseTable = tb1;
 
+            // Creazione tabella di comparazione
             Tabella tb2 = new Tabella();
             tb2.NomeTabella = "Tabella2";
             List<Campo> lc2 = new List<Campo>();
@@ -110,8 +114,14 @@ namespace SharedBase.Utils.Tests
             tb2.ListaCampi = lc2;
             pj.CompareTable = tb2;
 
+            // Aggiungo le due tabelle al progetto
             pj.BaseTable = tb1;
             pj.CompareTable = tb2;
+
+            Relazione relazione = new Relazione();
+
+            relazione.JoinCondition = null;
+            relazione.Operatori=
 
             return pj;
         }

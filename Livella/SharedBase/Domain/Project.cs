@@ -23,7 +23,7 @@ namespace SharedBase.Domain
         #endregion Costruttori
 
         #region Variabili
-
+        
         private string _projectName;
         private Tabella _baseTable;
         private Tabella _compareTable;
